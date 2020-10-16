@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Çorlu Mühendislik Fakültesi</title>
+
+
+
+<!-- CSS only -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+<!-- JS, Popper.js, and jQuery -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://rawgit.com/alfredobarron/smoke/master/dist/js/smoke.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<style>
+    * {box-sizing: border-box;}
+    body {font-family: Verdana, sans-serif;}
+    .mySlides {display: none;}
+    img {vertical-align: middle;}
+    
+    /* Slideshow container */
+    .slideshow-container {
+      max-width: 1000px;
+      position: relative;
+      margin: auto;
+    }
+    
+    /* Caption text */
+    .text {
+      color: #f2f2f2;
+      font-size: 15px;
+      padding: 8px 12px;
+      position: absolute;
+      bottom: 8px;
+      width: 100%;
+      text-align: center;
+    }
+    
+    /* Number text (1/3 etc) */
+    .numbertext {
+      color: #f2f2f2;
+      font-size: 12px;
+      padding: 8px 12px;
+      position: absolute;
+      top: 0;
+    }
+    
+    /* The dots/bullets/indicators */
+    .dot {
+      height: 15px;
+      width: 15px;
+      margin: 0 2px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      transition: background-color 0.6s ease;
+    }
+    
+    .active {
+      background-color: #717171;
+    }
+    
+    /* Fading animation */
+    .fade {
+      -webkit-animation-name: fade;
+      -webkit-animation-duration: 1.5s;
+      animation-name: fade;
+      animation-duration: 1.5s;
+    }
+    
+    @-webkit-keyframes fade {
+      from {opacity: .4} 
+      to {opacity: 1}
+    }
+    
+    @keyframes fade {
+      from {opacity: .4} 
+      to {opacity: 1}
+    }
+    
+    /* On smaller screens, decrease text size */
+    @media only screen and (max-width: 300px) {
+      .text {font-size: 11px}
+    }
+    </style>
+
+</head>
+<body>
+<div style="background-color: #01aebc;">
+    <h1 style="text-align: center;color: white;font-size: 4em;">Tekirdağ Namık Kemal Üniversitesi Çorlu Mühendislik Fakültesi</h1>
+</div>
+<div class="container-fluid">
+    <div class="slideshow-container" style="height: 75%;">
+        <div class="mySlides fade">
+          <img src="image/image1.png" style="width:100%">
+        </div>
+        
+        <div class="mySlides fade">
+          <img src="image/image2.png" style="width:100%">
+        </div>
+        
+        <div class="mySlides fade">
+          <img src="image/image3.png" style="width:100%">
+        </div>
+
+        <div class="mySlides fade">
+            <img src="image/image4.png" style="width:100%">
+        </div>
+
+        <div class="mySlides fade">
+            <img src="image/image5.png" style="width:100%">
+        </div>
+    </div>
+    <br>
+        
+    <div style="text-align:center">
+        <span class="dot"></span> 
+        <span class="dot"></span> 
+        <span class="dot"></span>
+        <span class="dot"></span> 
+        <span class="dot"></span> 
+    </div>
+
+    <div class="container" style="background-color: #01aebc;">
+        <div>
+            <h2 style="text-align: center;color: white;">Kullanıcı Oluşturma</h2>
+        </div>
+        <div class="form-group">
+            <label for="name">Ad</label>
+            <input type="text" class="form-control" id="name" placeholder="Ad giriniz">
+        </div>
+        <div class="form-group">
+            <label for="surname">Soyad</label>
+            <input type="text" class="form-control" id="surname" placeholder="Soyadı giriniz">
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="Email adresi giriniz">
+        </div>
+        <div class="form-group">
+            <label for="department">Bölüm</label>
+            <select class="form-control" id="department">
+                <option value=""></option>
+                <option value="computer">Bilgisayar Mühendisliği</option>
+                <option value="industrial">Endüstri Mühendisliği</option>
+                <option value="environmental">Çevre Mühendisliği</option>
+            </select>
+        </div>
+        <button id="submitButton" class="btn btn-success" style="width: 250px;">Kaydet</button>
+        <div class="alert alert-danger" style="text-align: center;margin-top: 5px;" role="alert" id="errorMessageDiv" hidden>
+            
+        </div>
+        <div class="alert alert-success" style="text-align: center;margin-top: 5px;" role="alert" id="successMessageDiv" hidden>
+            
+        </div>
+    </div>
+
+
+</div>
+
+
+
+</body>
+
+<script>
+    var slideIndex = 0;
+    showSlides();
+    
+    function showSlides() {
+      var i;
+      var slides = document.getElementsByClassName("mySlides");
+      var dots = document.getElementsByClassName("dot");
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";  
+      }
+      slideIndex++;
+      if (slideIndex > slides.length) {slideIndex = 1}    
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex-1].style.display = "block";  
+      dots[slideIndex-1].className += " active";
+      setTimeout(showSlides, 5000); // Change image every 2 seconds
+    }
+
+$(document).ready(function(){
+
+    $("#submitButton").click(function(){
+        let name = $("#name").val();
+        let surname = $("#surname").val();
+        let email = $("#email").val();
+        let department = $("#department").val();
+
+        console.log(name);
+        console.log(surname);
+        console.log(email);
+        console.log(department);
+
+        console.log(validate(email));
+
+        if (name === "" || surname === "" || department === "" || email === ""){
+            $("#errorMessageDiv").removeAttr('hidden');
+            $("#errorMessageDiv").text("Formda eksik alan bırakılamaz!");
+            setTimeout(function(){
+                $("#errorMessageDiv").attr('hidden', true);
+            }, 5000);
+        }else if(email !== "" && !validate(email)){
+            console.log("is not valid");
+            $("#errorMessageDiv").removeAttr('hidden');
+            $("#errorMessageDiv").text("Lütfen geçerli bir email adresi giriniz!");
+            setTimeout(function(){
+                $("#errorMessageDiv").attr('hidden', true);
+            }, 5000);
+        }else{
+            let jsonData = {
+                "name": name,
+                "surname": surname,
+                "email": email,
+                "department": department
+            };
+
+            $.ajax({
+                url: "https://stajodev.herokuapp.com/api/users/register",
+                data: JSON.stringify(jsonData),
+                type: "post",
+                dataType: "json",
+                contentType:"application/json",
+                success: function(response){
+                    if (response.success){
+                        $("#successMessageDiv").removeAttr('hidden');
+                        $("#successMessageDiv").text(response.success);
+                        $("#name").val("");
+                        $("#surname").val("");
+                        $("#email").val("");
+                        $("#department").val("");
+                        setTimeout(function(){
+                            $("#successMessageDiv").attr('hidden', true);
+                        }, 5000);
+                    }
+
+                    if (typeof response.error !== "undefined"){
+                        $("#errorMessageDiv").removeAttr('hidden');
+                        $("#errorMessageDiv").text(response.error);
+                        setTimeout(function(){
+                            $("#errorMessageDiv").attr('hidden', true);
+                        }, 5000);
+                    }
+                }
+            });
+
+        }
+
+        
+
+
+    });
+
+
+});
+
+function validateEmail(email) {
+  const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+}
+
+function validate(email) {
+  if (validateEmail(email)) {
+    return true;
+  }
+  return false;
+}
+
+
+</script>
+</html>

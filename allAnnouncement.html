@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Çorlu Mühendislik Fakültesi</title>
+
+
+
+<!-- CSS only -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+<!-- JS, Popper.js, and jQuery -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://rawgit.com/alfredobarron/smoke/master/dist/js/smoke.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<div style="background-color: #01aebc;">
+    <h1 style="text-align: center;color: white;">Tekirdağ Namık Kemal Üniversitesi Çorlu Mühendislik Fakültesi</h1>
+    <h1 style="text-align: center;color: white;">Duyurular</h1>
+</div>
+<div class="container-fluid">
+    
+    <div>
+        <select class="form-control" style="margin-top: 5px;margin-bottom: 5px;" id="department">
+            <option value="all" selected>Herkese</option>
+            <option value="computer">Bilgisayar Mühendisliği</option>
+            <option value="industrial">Endüstri Mühendisliği</option>
+            <option value="environmental">Çevre Mühendisliği</option>
+        </select>
+    </div>
+    <div class="accordion" id="announcements">
+            
+    </div>
+
+
+</div>
+
+
+
+</body>
+
+<script>
+
+$(document).ready(function(){
+    var pageNumber = 1;
+
+    $("#department").change(function(){
+        let selectedDepartment = $(this).val();
+        getAnnouncements(selectedDepartment);
+    });
+
+    getAnnouncements("all");
+
+   
+});
+
+function getAnnouncements(department){
+    $.ajax({
+        url: "https://stajodev.herokuapp.com/api/announcements-all/" + department, 
+        success: function(result){
+            if(result.length>0){
+                $("#announcements").empty();
+
+                $.each(result, function(i,k){
+                    let collapseString = "";
+
+                    collapseString += '<div class="card">'
+                    collapseString += '<div class="card-header" id="headingOne">'
+                    collapseString += '<h2 class="mb-0">'
+                    collapseString += '<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse' + k.id + '" aria-expanded="true" aria-controls="'+ k.title+ '">'
+                    collapseString += '<p style="float: left;">' + k.title + '</p><p style="float: right;font-size: 15px;float: right">( ' + k.date + ' )</p>'
+                    collapseString += '</button>'
+                    collapseString += '</h2>'
+                    collapseString += '</div>'
+                    collapseString += '<div id="collapse'+ k.id +'" class="collapse" aria-labelledby="headingOne" data-parent="#announcements">'
+                    collapseString += '<div class="card-body">'
+                    collapseString += k.content
+                    collapseString += '</div>'
+                    collapseString += '</div>'
+                    collapseString += '</div>'
+                    $("#announcements").append(collapseString);
+                });
+            }else{
+                $("#announcements").empty();
+                $("#announcements").append("<h2 style='text-align: center;'>Bu bölüm için herhangibir duyuru yapılmamıştır.</h2>");
+            }
+        }
+    });
+}
+
+
+
+</script>
+</html>
