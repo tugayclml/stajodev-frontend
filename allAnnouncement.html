@@ -16,7 +16,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
 </head>
-<body>
+<body style="background-color: #48C9B0;">
 <div style="background-color: #01aebc;">
     <h1 style="text-align: center;color: white;">Tekirdağ Namık Kemal Üniversitesi Çorlu Mühendislik Fakültesi</h1>
     <h1 style="text-align: center;color: white;">Duyurular</h1>
@@ -67,11 +67,11 @@ function getAnnouncements(department){
                 $.each(result, function(i,k){
                     let collapseString = "";
 
-                    collapseString += '<div class="card">'
+                    collapseString += '<div class="card" style="background-color: #48C9B0;">'
                     collapseString += '<div class="card-header" id="headingOne">'
                     collapseString += '<h2 class="mb-0">'
-                    collapseString += '<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse' + k.id + '" aria-expanded="true" aria-controls="'+ k.title+ '">'
-                    collapseString += '<p style="float: left;">' + k.title + '</p><p style="float: right;font-size: 15px;float: right">( ' + k.date + ' )</p>'
+                    collapseString += '<button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapse' + k.id + '" aria-expanded="true" aria-controls="'+ k.title+ '">'
+                    collapseString += '<p style="float: left;font-size: 15px;">' + k.title + ' (' + k.date + ' )</p>'
                     collapseString += '</button>'
                     collapseString += '</h2>'
                     collapseString += '</div>'

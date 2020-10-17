@@ -87,7 +87,7 @@
     </style>
 
 </head>
-<body>
+<body style="background-color: #48C9B0;">
 <div style="background-color: #01aebc;">
     <h1 style="text-align: center;color: white;font-size: 4em;">Tekirdağ Namık Kemal Üniversitesi Çorlu Mühendislik Fakültesi</h1>
 </div>
@@ -123,39 +123,68 @@
         <span class="dot"></span> 
     </div>
 
-    <div class="container" style="background-color: #01aebc;">
-        <div>
-            <h2 style="text-align: center;color: white;">Kullanıcı Oluşturma</h2>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-7">
+          <div class="container" style="background-color: #01aebc;border-radius: 15px 50px 30px;">
+              <div>
+                  <h2 style="text-align: center;color: white;">Duyuru Bildirimi İçin Kullanıcı Oluşturma</h2>
+              </div>
+              <div class="form-group">
+                  <label for="name">Ad</label>
+                  <input type="text" class="form-control" id="name" placeholder="Ad giriniz">
+              </div>
+              <div class="form-group">
+                  <label for="surname">Soyad</label>
+                  <input type="text" class="form-control" id="surname" placeholder="Soyadı giriniz">
+              </div>
+              <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" class="form-control" id="email" placeholder="Email adresi giriniz">
+              </div>
+              <div class="form-group">
+                  <label for="department">Bölüm</label>
+                  <select class="form-control" id="department">
+                      <option value=""></option>
+                      <option value="computer">Bilgisayar Mühendisliği</option>
+                      <option value="industrial">Endüstri Mühendisliği</option>
+                      <option value="environmental">Çevre Mühendisliği</option>
+                  </select>
+              </div>
+              <button id="submitButton" class="btn btn-success" style="width: 250px;margin-left: 5%;">Kaydet</button>
+              <div class="alert alert-danger" style="text-align: center;margin-top: 5px;border-radius: 15px 50px 30px;" role="alert" id="errorMessageDiv" hidden>
+                      
+              </div>
+              <div class="alert alert-success" style="text-align: center;margin-top: 5px;border-radius: 15px 50px 30px;" role="alert" id="successMessageDiv" hidden>
+                  
+              </div>
+          </div>
         </div>
-        <div class="form-group">
-            <label for="name">Ad</label>
-            <input type="text" class="form-control" id="name" placeholder="Ad giriniz">
+        <div class="col-5">
+          <div class="container" style="background-color: #01aebc; border-radius: 15px 50px 30px;">
+              <div>
+                  <h2 style="text-align: center;color: white;">Duyuru bildirimlerinden çıkmak mı istiyorsunuz?</h2>
+              </div>
+              <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" class="form-control" id="exitEmail" placeholder="Email adresi giriniz">
+              </div>
+              
+              <button id="exitEmailButton" class="btn btn-success" style="width: 250px;margin-left: 5%;">Kaydet</button>
+              <div class="alert alert-danger" style="text-align: center;margin-top: 5px;border-radius: 15px 50px 30px;" role="alert" id="emailExitErrorMessage" hidden>
+                  
+              </div>
+              <div class="alert alert-success" style="text-align: center;margin-top: 5px;border-radius: 15px 50px 30px;" role="alert" id="emailExitSuccessMessage" hidden>
+                  
+              </div>
+          </div>
         </div>
-        <div class="form-group">
-            <label for="surname">Soyad</label>
-            <input type="text" class="form-control" id="surname" placeholder="Soyadı giriniz">
-        </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" placeholder="Email adresi giriniz">
-        </div>
-        <div class="form-group">
-            <label for="department">Bölüm</label>
-            <select class="form-control" id="department">
-                <option value=""></option>
-                <option value="computer">Bilgisayar Mühendisliği</option>
-                <option value="industrial">Endüstri Mühendisliği</option>
-                <option value="environmental">Çevre Mühendisliği</option>
-            </select>
-        </div>
-        <button id="submitButton" class="btn btn-success" style="width: 250px;">Kaydet</button>
-        <div class="alert alert-danger" style="text-align: center;margin-top: 5px;" role="alert" id="errorMessageDiv" hidden>
-            
-        </div>
-        <div class="alert alert-success" style="text-align: center;margin-top: 5px;" role="alert" id="successMessageDiv" hidden>
-            
-        </div>
-    </div>
+      </div>
+  </div>
+
+    
+
+    
 
 
 </div>
@@ -222,7 +251,7 @@ $(document).ready(function(){
             };
 
             $.ajax({
-                url: "https://stajodev.herokuapp.com/api/users/register",
+                url: "http://172.21.0.1:8080/api/users/register",
                 data: JSON.stringify(jsonData),
                 type: "post",
                 dataType: "json",
@@ -249,12 +278,50 @@ $(document).ready(function(){
                     }
                 }
             });
-
         }
+    });
 
+
+    $("#exitEmailButton").click(function(){
+        let email = $("#exitEmail").val();
+        let isValid = validate(email);
+        if (isValid){
+          if (email !== ""){
+              $.ajax({
+                url: "http://172.21.0.1:8080/api/users/exitemail/" + email,
+                method: "DELETE",
+                success:function(response){
+                    if (response.deleted){
+                      $("#exitEmail").val("");
+                      $("#emailExitSuccessMessage").removeAttr('hidden');
+                      $("#emailExitSuccessMessage").text("İşleminiz başarıyla gerçekleştirilmiştir.");
+                      setTimeout(function(){
+                          $("#emailExitSuccessMessage").attr('hidden', true);
+                      }, 5000);
+                    }else{
+                      $("#emailExitErrorMessage").removeAttr('hidden');
+                      $("#emailExitErrorMessage").text("Bu email'e ait kullanıcı bulunmadı. Lütfen geçerli bir email adresi giriniz!");
+                      setTimeout(function(){
+                          $("#emailExitErrorMessage").attr('hidden', true);
+                      }, 5000);
+                    }
+                } 
+              });
+          }else{
+            $("#emailExitErrorMessage").removeAttr('hidden');
+            $("#emailExitErrorMessage").text("Email alanı boş bırakılamaz.");
+            setTimeout(function(){
+                $("#emailExitErrorMessage").attr('hidden', true);
+            }, 5000);
+          }
+        }else{
+          $("#emailExitErrorMessage").removeAttr('hidden');
+          $("#emailExitErrorMessage").text("Geçerli bir email adresi giriniz!");
+          setTimeout(function(){
+              $("#emailExitErrorMessage").attr('hidden', true);
+          }, 5000);
+        }
         
-
-
     });
 
 
