@@ -251,7 +251,7 @@ $(document).ready(function(){
             };
 
             $.ajax({
-                url: "http://172.21.0.1:8080/api/users/register",
+                url: "https://stajodev.herokuapp.com/api/users/register",
                 data: JSON.stringify(jsonData),
                 type: "post",
                 dataType: "json",
@@ -288,7 +288,7 @@ $(document).ready(function(){
         if (isValid){
           if (email !== ""){
               $.ajax({
-                url: "http://172.21.0.1:8080/api/users/exitemail/" + email,
+                url: "https://stajodev.herokuapp.com/api/users/exitemail/" + email,
                 method: "DELETE",
                 success:function(response){
                     if (response.deleted){
